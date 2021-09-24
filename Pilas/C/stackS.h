@@ -1,63 +1,65 @@
-#include <stdlib.h>
 #include <stdio.h>
 
-//Declaracion de nuestros nodos
-typedef struct Nodo {
-    /**
-     * Campos necesarios aqui
-     */
-     int data;
-} Nodo;
+#define N 5 //Tamaño estatico
 
-//Funcion para inicializar la pila
-void init(Nodo *, int); 
-/**
- * Funcion para ingresar un elemento a la pila
- * Regresa 1 si fue exitosa la operacion
- * Regresa 0 si hubo un error
- */
-int push(Nodo *, Nodo);
-/**
- * Funcion para eliminar un elemento a la pila
- * Regresa el valor del Nodo eliminado
- * Regresa NULL si no hay ningun valor en la pila
- */
-Nodo pop(Nodo *); 
-//Funcion para verificar si la pila esta vacia
-int is_empty(Nodo *);
+//Declaracion de nuestra estructura
+typedef struct Stack {
+    int items[N]; //Arreglo de items de un solo tipo
+    int idx; //Index actual
+} Stack;
 
-Nodo createNode(){
-    Nodo toAdd;
-    /**
-    Implementacion de campos aqui
-    **/
-    return toAdd;
+//Funcion que inicializa la estructura
+void init(Stack *);
+
+//Funcion para verificar si la pila está vacia
+int is_empty(Stack *);
+
+//Funcion para verificar si la pila está llena
+int is_full(Stack *);
+
+//Funcion para agregar un nuevo item
+//Regresa 1 si se ha insertado correctamente
+//Regresa 0 si ha ocurrido un error
+int push(Stack *, int);
+
+//Funcion que permite eliminar el ultimo valor de la estructura
+//Regresa 0 si ha ocurrido un error al sacar el valor
+//Regresa 1 si se ha eliminado correctamente
+//Se regresa el valor eliminado mediante puntero
+int pop(Stack *, int *);
+
+
+void init(Stack *s){
+    for(int i = 0; i < N; i++){
+        s->items[i] = 0;
+    }
+    s->idx = N-1;
 }
 
-void init(Nodo *n, int size){
-    n = (Nodo *) malloc(sizeof(Nodo) * size);
+int is_empty(Stack *s){
+    return s->idx == N-1;
 }
 
-int push(Nodo *n, Nodo toAdd){
-    int size = sizeof(n)/sizeof(n[0]);
-    Nodo temp = n[0];
-    n[0] = toAdd;
-    for(int i = 1; i < size - 1; i++){
-        n[i] = temp;
-        temp = n[i];
+int is_full(Stack *s){
+    return s->idx == -1;
+}
+
+int push(Stack *s, int value){
+    if(!is_full(s)){
+        s->items[s->idx] = value;
+        (s->idx)--;
+        return 1;
+    }else {
+        return 0;
     }
 }
 
-Nodo pop(Nodo *n){
-    int size = sizeof(n)/sizeof(n[0]);
-    Nodo toRemove = n[0];
-    for(int i = 1; i < size; i++){
-        n[i-1] = n[i];
-    }
-    return toRemove;
-}
-
-int is_empty(Nodo *n){
-    int size = sizeof(n)/sizeof(n[0]);
-    return size > 0;
+int pop(Stack *s, int *popped_value){
+    if(!is_empty(s)){
+        (s->idx)++;
+        *popped_value = s->items[s->idx];
+        s->items[s->idx] = 0;
+        return 1;
+    }else
+        return 0;
 }

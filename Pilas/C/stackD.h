@@ -6,6 +6,7 @@ typedef struct Nodo {
     /**
      * Campos necesarios aqui
      */
+     int v;
     struct Nodo *next; //Siempre es necesario tener el apuntador al nodo siguiente
 } Nodo;
 
@@ -31,12 +32,16 @@ Nodo pop(Stack *);
 //Funcion para verificar si la pila esta vacia
 int is_empty(Stack *);
 
-Nodo *createNode(){
+Nodo *createNode(int value){
     Nodo *toAdd = (Nodo *) malloc(sizeof(Nodo));
     if(toAdd == NULL){
         printf("Ha ocurrido un error al crear el nodo\n");
         exit(-1);
     }
+    /*
+    *Implementacion de valores aqui
+    */
+    toAdd->v = value;
     toAdd->next = NULL;
     return toAdd;
 }
@@ -65,18 +70,17 @@ Nodo pop(Stack *s){
         printf("El apuntador de la pila es nulo\n");
         exit(-1);
     }
-
+    Nodo toReturn;
     if(s->root != NULL){
         //Si hay elementos
         Nodo *toRemove = s->root;
         s->root = toRemove->next;
-        Nodo temp = *toRemove;
+        toReturn = *toRemove;
         free(toRemove);
-        return temp;
     }else {
         printf("No hay elementos\n");
     }
-
+    return toReturn;
 }
 
 int is_empty(Stack *s){
