@@ -6,7 +6,7 @@ typedef struct Nodo {
     /**
      * Campos necesarios aqui
      */
-     int v;
+    int v;
     struct Nodo *next; //Siempre es necesario tener el apuntador al nodo siguiente
 } Nodo;
 
@@ -91,3 +91,5 @@ int is_empty(Stack *s){
     return s->size > 0;
 
 }
+
+O(1)...

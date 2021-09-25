@@ -63,3 +63,10 @@ int pop(Stack *s, int *popped_value){
     }else
         return 0;
 }
+
+O(n)
+O(1)
+O(1)
+O(1)
+O(1)
+O(n)

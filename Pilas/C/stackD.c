@@ -1,6 +1,6 @@
 #include "stackD.h"
 
-#define N 10
+#define N 15
 
 int main(){
     Stack s;

@@ -6,7 +6,7 @@ int main(){
     init(&s);
 
     for(int i = 0; i < N; i++)
-        printf("%i\n", push(&s, createNode(i+1)));
+        printf("%i\n", push(&s, i));
 
     int v;
     for(int i = 0; i < N; i++){
